@@ -7,12 +7,12 @@ public class Course {
 	private String courseName;
 	private String professorName;
 	private String courseDay;
-	private int courseStartTime;
-	private int courseEndTime;
+	private double courseStartTime;
+	private double courseEndTime;
 
 	// Constructor
-	public Course(String courseID, String courseName, String professorName, String courseDay, int courseStartTime,
-			int courseEndTime) {
+	public Course(String courseID, String courseName, String professorName, String courseDay, double courseStartTime,
+			double courseEndTime) {
 		this.courseID = courseID;
 		this.courseName = courseName;
 		this.professorName = professorName;
@@ -40,11 +40,11 @@ public class Course {
 		return courseDay;
 	}
 
-	public int getCourseStartTime() {
+	public double getCourseStartTime() {
 		return courseStartTime;
 	}
 
-	public int getCourseEndTime() {
+	public double getCourseEndTime() {
 		return courseEndTime;
 	}
 
