@@ -78,4 +78,5 @@ public class AllCoursesSchedule {
 		AddCourses();
 		return ALL_COURSES;
 	}
+
 }

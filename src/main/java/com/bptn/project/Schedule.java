@@ -1,10 +1,16 @@
 package com.bptn.project;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class Schedule {
 //	Class Variables:
-	private HashMap<String, Course> ALL_COURSES; // (String is courseID)
+	private static HashMap<String, Course> ALL_COURSES; // (String is courseID)
 	private HashMap<String, Course> currentSchedule; // (String is courseID)
 
 	// Constructor
@@ -24,12 +30,12 @@ public class Schedule {
 	}
 
 	public boolean courseExists(String courseID) {
-		return ALL_COURSES.containsKey(courseID);
+		return ALL_COURSES.containsKey(courseID.toUpperCase());
 	}
 
 	public Course getCourse(String courseID) {
 		if (courseExists(courseID)) {
-			return ALL_COURSES.get(courseID);
+			return ALL_COURSES.get(courseID.toUpperCase());
 		} else {
 			return null;
 		}
@@ -71,7 +77,7 @@ public class Schedule {
 		} else if (currentSchedule.size() >= 6) {
 			System.out.println("You already have 6 courses in your schedule!");
 		} else {
-			currentSchedule.put(courseID, ALL_COURSES.get(courseID.toUpperCase()));
+			currentSchedule.put(courseID.toUpperCase(), ALL_COURSES.get(courseID.toUpperCase()));
 			System.out.println("The course was successfully added to your schedule!");
 		}
 	}
@@ -86,5 +92,125 @@ public class Schedule {
 			currentSchedule.remove(courseID.toUpperCase());
 			System.out.println("The course was successfully removed from your schedule!");
 		}
+	}
+
+	public static List<Course> sortSchedule(List<Course> courses) {
+		if (courses.size() > 0) {
+			List<Course> sorted = courses.stream().sorted(Comparator.comparing(Course::getCourseStartTime))
+					.collect(Collectors.toList());
+			return sorted;
+		} else {
+			return null;
+		}
+	}
+
+	public void printDay(List<Course> daySchedule) {
+		for (Course course : daySchedule) {
+			course.printCourseInfo();
+		}
+	}
+
+	public static void printDayAllCourses(List<Course> daySchedule) {
+		for (Course course : daySchedule) {
+			System.out.println(course.getCourseID() + ": " + course.getCourseName());
+		}
+	}
+
+	public static void printALL_COURSES() {
+		Iterator<Entry<String, Course>> itr = ALL_COURSES.entrySet().iterator();
+		List<Course> monday = new ArrayList<>();
+		List<Course> tuesday = new ArrayList<>();
+		List<Course> wednesday = new ArrayList<>();
+		List<Course> thursday = new ArrayList<>();
+		List<Course> friday = new ArrayList<>();
+		while (itr.hasNext()) {
+			Entry<String, Course> entry = itr.next();
+			if (entry.getValue().getCourseDay().equals("Monday")) {
+				monday.add(entry.getValue());
+			} else if (entry.getValue().getCourseDay().equals("Tuesday")) {
+				tuesday.add(entry.getValue());
+			} else if (entry.getValue().getCourseDay().equals("Wednesday")) {
+				wednesday.add(entry.getValue());
+			} else if (entry.getValue().getCourseDay().equals("Thursday")) {
+				thursday.add(entry.getValue());
+			} else {
+				friday.add(entry.getValue());
+			}
+		}
+		monday = sortSchedule(monday);
+		tuesday = sortSchedule(tuesday);
+		wednesday = sortSchedule(wednesday);
+		thursday = sortSchedule(thursday);
+		friday = sortSchedule(friday);
+
+		System.out.println("*********MONDAY*********");
+		printDayAllCourses(monday);
+
+		System.out.println("*********TUESDAY*********");
+		printDayAllCourses(tuesday);
+
+		System.out.println("*********WEDNESDAY*********");
+		printDayAllCourses(wednesday);
+
+		System.out.println("*********THURSDAY*********");
+		printDayAllCourses(thursday);
+
+		System.out.println("*********FRIDAY*********");
+		printDayAllCourses(friday);
+
+	}
+
+	public void printSchedule() {
+		if (currentSchedule.size() > 0) {
+			Iterator<Entry<String, Course>> itr = currentSchedule.entrySet().iterator();
+			List<Course> monday = new ArrayList<>();
+			List<Course> tuesday = new ArrayList<>();
+			List<Course> wednesday = new ArrayList<>();
+			List<Course> thursday = new ArrayList<>();
+			List<Course> friday = new ArrayList<>();
+			while (itr.hasNext()) {
+				Entry<String, Course> entry = itr.next();
+				if (entry.getValue().getCourseDay().equals("Monday")) {
+					monday.add(entry.getValue());
+				} else if (entry.getValue().getCourseDay().equals("Tuesday")) {
+					tuesday.add(entry.getValue());
+				} else if (entry.getValue().getCourseDay().equals("Wednesday")) {
+					wednesday.add(entry.getValue());
+				} else if (entry.getValue().getCourseDay().equals("Thursday")) {
+					thursday.add(entry.getValue());
+				} else {
+					friday.add(entry.getValue());
+				}
+			}
+			monday = sortSchedule(monday);
+			tuesday = sortSchedule(tuesday);
+			wednesday = sortSchedule(wednesday);
+			thursday = sortSchedule(thursday);
+			friday = sortSchedule(friday);
+
+			System.out.println("*********MONDAY*********");
+			if (monday.size() > 0) {
+				printDay(monday);
+			}
+			System.out.println("*********TUESDAY*********");
+			if (tuesday != null) {
+				printDay(tuesday);
+			}
+			System.out.println("*********WEDNESDAY*********");
+			if (wednesday != null) {
+				printDay(wednesday);
+			}
+			System.out.println("*********THURSDAY*********");
+			if (thursday != null) {
+				printDay(thursday);
+			}
+			System.out.println("*********FRIDAY*********");
+			if (friday != null) {
+				printDay(friday);
+			}
+		} else {
+			System.out.println("There are no courses in your schedule!");
+		}
+
 	}
 }
