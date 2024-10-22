@@ -143,19 +143,19 @@ public class Schedule {
 		thursday = sortSchedule(thursday);
 		friday = sortSchedule(friday);
 
-		System.out.println("*********MONDAY*********");
+		System.out.println("**********MONDAY***********");
 		printDayAllCourses(monday);
 
-		System.out.println("*********TUESDAY*********");
+		System.out.println("**********TUESDAY**********");
 		printDayAllCourses(tuesday);
 
 		System.out.println("*********WEDNESDAY*********");
 		printDayAllCourses(wednesday);
 
-		System.out.println("*********THURSDAY*********");
+		System.out.println("*********THURSDAY**********");
 		printDayAllCourses(thursday);
 
-		System.out.println("*********FRIDAY*********");
+		System.out.println("**********FRIDAY***********");
 		printDayAllCourses(friday);
 
 	}
@@ -188,11 +188,11 @@ public class Schedule {
 			thursday = sortSchedule(thursday);
 			friday = sortSchedule(friday);
 
-			System.out.println("*********MONDAY*********");
+			System.out.println("**********MONDAY***********");
 			if (monday.size() > 0) {
 				printDay(monday);
 			}
-			System.out.println("*********TUESDAY*********");
+			System.out.println("**********TUESDAY**********");
 			if (tuesday != null) {
 				printDay(tuesday);
 			}
@@ -200,11 +200,11 @@ public class Schedule {
 			if (wednesday != null) {
 				printDay(wednesday);
 			}
-			System.out.println("*********THURSDAY*********");
+			System.out.println("*********THURSDAY**********");
 			if (thursday != null) {
 				printDay(thursday);
 			}
-			System.out.println("*********FRIDAY*********");
+			System.out.println("**********FRIDAY***********");
 			if (friday != null) {
 				printDay(friday);
 			}

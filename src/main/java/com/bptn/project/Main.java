@@ -9,15 +9,14 @@ public class Main {
 	private static HashMap<String, Student> studentAccounts = new HashMap<>();
 	private static HashMap<String, String> emailsToIds = new HashMap<>();
 	private static int idCount = 0;
+	private static Scanner scanner = new Scanner(System.in);
 
 	public static boolean login(String studentID) {
-		Scanner scan = new Scanner(System.in);
 		if (studentAccounts.containsKey(studentID)) {
-
+			// Scanner scan = new Scanner(System.in);
 			Student student = studentAccounts.get(studentID);
 			System.out.println("Please enter your password: ");
-			String studentPassword = scan.nextLine();
-
+			String studentPassword = scanner.nextLine();
 			if (student.getStudentPassword().equals(studentPassword)) {
 				return true;
 			}
@@ -38,23 +37,34 @@ public class Main {
 	}
 
 	public static boolean createAccount(String email) {
-		Scanner scan = new Scanner(System.in);
 		if (isEmailValid(email)) {
 			System.out.println("Please enter your first name: ");
-			String studentFirst = scan.nextLine();
+			String studentFirst = scanner.nextLine();
+			while (studentFirst.equals(" ") || studentFirst.equals("")) {
+				System.out.println("That is not a valid name, please try again!");
+				studentFirst = scanner.nextLine();
+			}
 
 			System.out.println("Please enter your last name: ");
-			String studentLast = scan.nextLine();
+			String studentLast = scanner.nextLine();
+			while (studentLast.equals(" ") || studentLast.equals("")) {
+				System.out.println("That is not a valid name, please try again!");
+				studentLast = scanner.nextLine();
+			}
 
-			System.out.println("Please enter your password: ");
-			String studentPassword1 = scan.nextLine();
+			System.out.println("Please enter your password, it must be at least 8 characters: ");
+			String studentPassword1 = scanner.nextLine();
+			while (studentPassword1.length() < 8) {
+				System.out.println("Your password must be at least 8 characters!");
+				studentPassword1 = scanner.nextLine();
+			}
 
 			System.out.println("Please re-enter your password: ");
-			String studentPassword2 = scan.nextLine();
+			String studentPassword2 = scanner.nextLine();
 			if (!studentPassword1.equals(studentPassword2)) {
 				do {
 					System.out.println("Those passwords don't match, please re-enter your your password: ");
-					studentPassword2 = scan.nextLine();
+					studentPassword2 = scanner.nextLine();
 				} while (!studentPassword1.equals(studentPassword2));
 			}
 			String studentID = idGenerator(studentLast);
@@ -67,28 +77,29 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
+		Student admin = new Student("admin", "admin", "admin@school.com", "admin");
+		studentAccounts.put("admin", admin);
+		emailsToIds.put(admin.getStudentEmail(), admin.getStudentID());
 		int choice = 0;
 		do {
 			System.out.println("************************************************** \n"
-					+ "*          University of BPTN Dashboard          *\n"
+					+ "*                   Login Menu                   *\n"
 					+ "**************************************************");
 			System.out.println("| Num |     What would you like to do? \n" + "|  1. | Login \n"
 					+ "|  2. | Create an Account \n" + "|  3. | Exit \n");
 
-			Scanner scan = new Scanner(System.in);
-
 			try {
-				choice = scan.nextInt();
-				scan.nextLine();
+				choice = scanner.nextInt();
+				scanner.nextLine();
 			} catch (InputMismatchException e) {
 				System.out.println("Please enter a number!");
 			}
 			switch (choice) {
 			case 1:
 				System.out.println("Please enter your student ID: ");
-				String studentID = scan.nextLine();
+				String studentID = scanner.nextLine();
 				if (login(studentID)) {
-					StudentDashboard.dashboard(studentAccounts.get(studentID));
+					StudentDashboard.dashboard(studentAccounts.get(studentID), scanner);
 				} else {
 					System.out.println("The login was unsuccessful! Please make sure you are"
 							+ " entering the correct student ID and password!");
@@ -98,7 +109,7 @@ public class Main {
 			case 2:
 				System.out.println("Please enter your student email: ");
 				System.out.println("(should end in @school.com)");
-				String email = scan.nextLine();
+				String email = scanner.nextLine();
 				if (emailsToIds.containsKey(email)) {
 					System.out.println("This email already exists and belongs to student ID " + emailsToIds.get(email));
 				} else {
@@ -113,13 +124,13 @@ public class Main {
 				break;
 			case 3:
 				System.out.println("Thanks for stopping by!");
+				scanner.close();
 				break;
 			default:
 				System.out.println("Not a valid Selection, try again!");
 
 			}
 		} while (choice != 3);
-
+		// scan.close();
 	}
-
 }
