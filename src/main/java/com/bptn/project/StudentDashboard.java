@@ -8,12 +8,15 @@ public class StudentDashboard {
 	public static void dashboard(Student student, Scanner scanner) {
 		int choice = 0;
 		do {
-			System.out.println("************************************************** \n"
+			System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + ConsoleColors.PINK
+					+ "************************************************** \n"
 					+ "*          University of BPTN Dashboard          *\n"
-					+ "**************************************************");
-			System.out.println("| Num |     What would you like to do? \n" + "|  1. | View schedule \n"
-					+ "|  2. | Add a course \n" + "|  3. | Remove a course \n" + "|  4. | Get course information \n"
-					+ "|  5. | Get personal information \n" + "|  6. | Change password \n" + "|  7. | Log out \n");
+					+ "**************************************************" + ConsoleColors.RESET);
+			System.out.println(ConsoleColors.GREEN_UNDERLINED + ConsoleColors.PINK
+					+ "| Num |     What would you like to do?________ \n" + ConsoleColors.RESET + ConsoleColors.PINK
+					+ "|  1. | View schedule \n" + "|  2. | Add a course \n" + "|  3. | Remove a course \n"
+					+ "|  4. | Get course information \n" + "|  5. | Get personal information \n"
+					+ "|  6. | Change password \n" + "|  7. | Log out \n" + ConsoleColors.RESET);
 
 			try {
 				choice = scanner.nextInt();
@@ -23,12 +26,13 @@ public class StudentDashboard {
 			}
 			switch (choice) {
 			case 1:
-				System.out.println("Would you like to save your schedule in a text file? (Y/N)");
+				System.out.println(ConsoleColors.PINK + "Would you like to save your schedule in a text file? (Y/N)");
 				String save = scanner.nextLine();
 				if (save.toUpperCase().equals("Y")) {
 					student.getStudentSchedule().printScheduleFile();
 				} else if (!save.toUpperCase().equals("N")) {
-					System.out.println("That is not a valid selection! Your schedule will not save to a text file.");
+					System.out.println("That is not a valid selection! Your schedule will not save to a text file."
+							+ ConsoleColors.RESET);
 				}
 				student.getStudentSchedule().printSchedule();
 				break;

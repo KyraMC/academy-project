@@ -7,7 +7,6 @@ public class AllCoursesSchedule {
 
 	public static void AddCourses() {
 		ALL_COURSES = new HashMap<>();
-
 		// create courses and add them to ALL_COURSES
 		// Monday Courses
 		Course c1 = new Course("PHY100", "Introduction to Physics", "Professor X", "Monday", 12.00, 14.00);

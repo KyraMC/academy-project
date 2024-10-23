@@ -50,8 +50,34 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course ID: " + courseID + "\n Course Name: " + courseName + "\n Professor Name: " + professorName
-				+ "\n Course Day: " + courseDay + "\n Start Time: " + courseStartTime + "\n End Time: " + courseEndTime;
+		String start = "";
+		String end = "";
+		if (courseStartTime < 12.00) {
+			start = "a.m";
+			if (courseEndTime < 12.00) {
+				end = "a.m";
+			} else {
+				end = "p.m";
+			}
+		} else {
+			start = "p.m";
+			end = "p.m";
+		}
+		String printStart = "";
+		String printEnd = "";
+		if (courseStartTime % 1 == 0.3) {
+			printStart = (int) courseStartTime - 0.3 + ":30";
+		} else {
+			printStart = (int) courseStartTime + ":00";
+		}
+		if (courseEndTime % 1 == 0.3) {
+			printEnd = (int) courseEndTime - 0.3 + ":30";
+		} else {
+			printEnd = (int) courseEndTime + ":00";
+		}
+		return "Course ID: " + courseID + "\nCourse Name: " + courseName + "\nProfessor Name: " + professorName
+				+ "\nCourse Day: " + courseDay + "\nStart Time: " + printStart + start + "\nEnd Time: " + printEnd + end
+				+ "\n";
 	}
 
 //	print all course info

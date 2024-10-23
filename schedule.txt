@@ -1,6 +1,43 @@
-**********MONDAY***********Course ID: PHY100
- Course Name: Introduction to Physics
- Professor Name: Professor X
- Course Day: Monday
- Start Time: 12.0
- End Time: 14.0**********TUESDAY*******************WEDNESDAY******************THURSDAY********************FRIDAY***********
+
+*****************************************
+*****************MONDAY******************
+Course ID: PHY100
+Course Name: Introduction to Physics
+Professor Name: Professor X
+Course Day: Monday
+Start Time: 12:00p.m
+End Time: 14:00p.m
+
+Course ID: BIO100
+Course Name: Introduction to Biology
+Professor Name: Professor Darwin
+Course Day: Monday
+Start Time: 14:00p.m
+End Time: 15:00p.m
+
+Course ID: CAL100
+Course Name: Introduction to Calculus
+Professor Name: Professor Leibniz
+Course Day: Monday
+Start Time: 14:00p.m
+End Time: 16:00p.m
+
+
+*****************************************
+*****************TUESDAY*****************
+
+*****************************************
+****************WEDNESDAY****************
+
+*****************************************
+****************THURSDAY*****************
+
+*****************************************
+*****************FRIDAY******************
+Course ID: CIN100
+Course Name: Introduction to Cinema
+Professor Name: Professor Abrams
+Course Day: Friday
+Start Time: 15:00p.m
+End Time: 17:00p.m
+

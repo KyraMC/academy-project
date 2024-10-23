@@ -82,11 +82,12 @@ public class Main {
 		emailsToIds.put(admin.getStudentEmail(), admin.getStudentID());
 		int choice = 0;
 		do {
-			System.out.println("************************************************** \n"
+			System.out.println(ConsoleColors.CYAN_BOLD_BRIGHT + "************************************************** \n"
 					+ "*                   Login Menu                   *\n"
-					+ "**************************************************");
-			System.out.println("| Num |     What would you like to do? \n" + "|  1. | Login \n"
-					+ "|  2. | Create an Account \n" + "|  3. | Exit \n");
+					+ "**************************************************" + ConsoleColors.RESET);
+			System.out.println(ConsoleColors.CYAN_UNDERLINED + "| Num |     What would you like to do?_______\n"
+					+ ConsoleColors.CYAN + "|  1. | Login \n" + "|  2. | Create an Account \n" + "|  3. | Exit \n"
+					+ ConsoleColors.RESET);
 
 			try {
 				choice = scanner.nextInt();
