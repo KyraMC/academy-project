@@ -13,7 +13,8 @@ public class ConsoleColors {
 	public static final String PURPLE = "\033[0;35m"; // PURPLE
 	public static final String CYAN = "\033[0;36m"; // CYAN
 	public static final String WHITE = "\033[0;37m"; // WHITE
-	public static final String PINK = "\u001b[38;5;225m"; // WHITE
+	public static final String PINK = "\u001b[38;5;225m";
+	public static final String LILAC = "\u001b[38;5;175m";
 	// \u001b[38;5;<color code>m
 
 	// Bold

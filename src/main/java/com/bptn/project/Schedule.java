@@ -72,28 +72,32 @@ public class Schedule {
 	public void addCourse(String courseID) {
 		int conflict = courseConflict(courseID);
 		if (conflict == 2) {
-			System.out.println("This courseID does not exist!");
+			System.out.println(ConsoleColors.CYAN + "This courseID does not exist!" + ConsoleColors.RESET);
 		} else if (conflict == -1) {
-			System.out.println("This course is already in your schedule!");
+			System.out.println(ConsoleColors.CYAN + "This course is already in your schedule!" + ConsoleColors.RESET);
 		} else if (conflict == 0) {
-			System.out.println("You have a conflict and cannot add this course to your schedule.");
+			System.out.println(ConsoleColors.CYAN + "You have a conflict and cannot add this course to your schedule."
+					+ ConsoleColors.RESET);
 		} else if (currentSchedule.size() >= 6) {
-			System.out.println("You already have 6 courses in your schedule!");
+			System.out
+					.println(ConsoleColors.CYAN + "You already have 6 courses in your schedule!" + ConsoleColors.RESET);
 		} else {
 			currentSchedule.put(courseID.toUpperCase(), ALL_COURSES.get(courseID.toUpperCase()));
-			System.out.println("The course was successfully added to your schedule!");
+			System.out.println(
+					ConsoleColors.CYAN + "The course was successfully added to your schedule!" + ConsoleColors.RESET);
 		}
 	}
 
 //		Void deleteCourse -> if courseID is in our schedule then we will remove it 
 	public void deleteCourse(String courseID) {
 		if (!courseExists(courseID.toUpperCase())) {
-			System.out.println("This courseID does not exist!");
+			System.out.println(ConsoleColors.CYAN + "This courseID does not exist!" + ConsoleColors.RESET);
 		} else if (!currentSchedule.containsKey(courseID.toUpperCase())) {
-			System.out.println("This course is not in your schedule!");
+			System.out.println(ConsoleColors.CYAN + "This course is not in your schedule!" + ConsoleColors.RESET);
 		} else {
 			currentSchedule.remove(courseID.toUpperCase());
-			System.out.println("The course was successfully removed from your schedule!");
+			System.out.println(ConsoleColors.CYAN + "The course was successfully removed from your schedule!"
+					+ ConsoleColors.RESET);
 		}
 	}
 
@@ -223,7 +227,8 @@ public class Schedule {
 				printDay(friday);
 			}
 		} else {
-			System.out.println("There are no courses in your schedule!");
+			System.out.println(
+					ConsoleColors.CYAN_BOLD_BRIGHT + "There are no courses in your schedule!" + ConsoleColors.RESET);
 		}
 
 	}

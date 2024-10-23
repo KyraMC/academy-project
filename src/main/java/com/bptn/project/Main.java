@@ -15,7 +15,7 @@ public class Main {
 		if (studentAccounts.containsKey(studentID)) {
 			// Scanner scan = new Scanner(System.in);
 			Student student = studentAccounts.get(studentID);
-			System.out.println("Please enter your password: ");
+			System.out.println(ConsoleColors.CYAN + "Please enter your password: " + ConsoleColors.RESET);
 			String studentPassword = scanner.nextLine();
 			if (student.getStudentPassword().equals(studentPassword)) {
 				return true;
@@ -38,32 +38,38 @@ public class Main {
 
 	public static boolean createAccount(String email) {
 		if (isEmailValid(email)) {
-			System.out.println("Please enter your first name: ");
+			System.out.println(ConsoleColors.CYAN + "Please enter your first name: " + ConsoleColors.RESET);
 			String studentFirst = scanner.nextLine();
 			while (studentFirst.equals(" ") || studentFirst.equals("")) {
-				System.out.println("That is not a valid name, please try again!");
+				System.out.println(
+						ConsoleColors.CYAN + "That is not a valid name, please try again!" + ConsoleColors.RESET);
 				studentFirst = scanner.nextLine();
 			}
 
-			System.out.println("Please enter your last name: ");
+			System.out.println(ConsoleColors.CYAN + "Please enter your last name: " + ConsoleColors.RESET);
 			String studentLast = scanner.nextLine();
 			while (studentLast.equals(" ") || studentLast.equals("")) {
-				System.out.println("That is not a valid name, please try again!");
+				System.out.println(
+						ConsoleColors.CYAN + "That is not a valid name, please try again!" + ConsoleColors.RESET);
 				studentLast = scanner.nextLine();
 			}
 
-			System.out.println("Please enter your password, it must be at least 8 characters: ");
+			System.out.println(ConsoleColors.CYAN + "Please enter your password, it must be at least 8 characters: "
+					+ ConsoleColors.RESET);
 			String studentPassword1 = scanner.nextLine();
 			while (studentPassword1.length() < 8) {
-				System.out.println("Your password must be at least 8 characters!");
+				System.out.println(
+						ConsoleColors.CYAN + "Your password must be at least 8 characters!" + ConsoleColors.RESET);
 				studentPassword1 = scanner.nextLine();
 			}
 
-			System.out.println("Please re-enter your password: ");
+			System.out.println(ConsoleColors.CYAN + "Please re-enter your password: " + ConsoleColors.RESET);
 			String studentPassword2 = scanner.nextLine();
 			if (!studentPassword1.equals(studentPassword2)) {
 				do {
-					System.out.println("Those passwords don't match, please re-enter your your password: ");
+					System.out.println(
+							ConsoleColors.CYAN + "Those passwords don't match, please re-enter your your password: "
+									+ ConsoleColors.RESET);
 					studentPassword2 = scanner.nextLine();
 				} while (!studentPassword1.equals(studentPassword2));
 			}
@@ -82,53 +88,59 @@ public class Main {
 		emailsToIds.put(admin.getStudentEmail(), admin.getStudentID());
 		int choice = 0;
 		do {
-			System.out.println(ConsoleColors.CYAN_BOLD_BRIGHT + "************************************************** \n"
+			System.out.println(ConsoleColors.CYAN_BOLD_BRIGHT + ConsoleColors.LILAC
+					+ "************************************************** \n"
 					+ "*                   Login Menu                   *\n"
 					+ "**************************************************" + ConsoleColors.RESET);
-			System.out.println(ConsoleColors.CYAN_UNDERLINED + "| Num |     What would you like to do?_______\n"
-					+ ConsoleColors.CYAN + "|  1. | Login \n" + "|  2. | Create an Account \n" + "|  3. | Exit \n"
-					+ ConsoleColors.RESET);
+			System.out.println(ConsoleColors.CYAN_UNDERLINED + ConsoleColors.LILAC
+					+ "| Num |     What would you like to do?_______\n" + ConsoleColors.RESET + ConsoleColors.LILAC
+					+ "|  1. | Login \n" + "|  2. | Create an Account \n" + "|  3. | Exit \n" + ConsoleColors.RESET);
 
 			try {
 				choice = scanner.nextInt();
-				scanner.nextLine();
+
 			} catch (InputMismatchException e) {
-				System.out.println("Please enter a number!");
+				// System.out.println(ConsoleColors.CYAN + "Please enter a number!" +
+				// ConsoleColors.RESET);
 			}
+			scanner.nextLine();
 			switch (choice) {
 			case 1:
-				System.out.println("Please enter your student ID: ");
+				System.out.println(ConsoleColors.CYAN + "Please enter your student ID: " + ConsoleColors.RESET);
 				String studentID = scanner.nextLine();
 				if (login(studentID)) {
 					StudentDashboard.dashboard(studentAccounts.get(studentID), scanner);
 				} else {
-					System.out.println("The login was unsuccessful! Please make sure you are"
-							+ " entering the correct student ID and password!");
+					System.out.println(ConsoleColors.CYAN + "The login was unsuccessful! Please make sure you are"
+							+ " entering the correct student ID and password!" + ConsoleColors.RESET);
 				}
 
 				break;
 			case 2:
-				System.out.println("Please enter your student email: ");
-				System.out.println("(should end in @school.com)");
+				System.out.println(ConsoleColors.CYAN + "Please enter your student email: " + ConsoleColors.RESET);
+				System.out.println(ConsoleColors.CYAN + "(should end in @school.com)" + ConsoleColors.RESET);
 				String email = scanner.nextLine();
 				if (emailsToIds.containsKey(email)) {
-					System.out.println("This email already exists and belongs to student ID " + emailsToIds.get(email));
+					System.out.println(ConsoleColors.CYAN + "This email already exists and belongs to student ID "
+							+ emailsToIds.get(email) + ConsoleColors.RESET);
 				} else {
 					boolean success = createAccount(email);
 					if (success) {
-						System.out.println("Account created! Your student ID is " + emailsToIds.get(email));
+						System.out.println(ConsoleColors.CYAN + "Account created! Your student ID is "
+								+ emailsToIds.get(email) + ConsoleColors.RESET);
 					} else {
-						System.out.println("Account could not be created! Please make sure you are using your"
-								+ " school email ending in @school.com.");
+						System.out.println(
+								ConsoleColors.CYAN + "Account could not be created! Please make sure you are using your"
+										+ " school email ending in @school.com." + ConsoleColors.RESET);
 					}
 				}
 				break;
 			case 3:
-				System.out.println("Thanks for stopping by!");
+				System.out.println(ConsoleColors.CYAN + "Thanks for stopping by!" + ConsoleColors.RESET);
 				scanner.close();
 				break;
 			default:
-				System.out.println("Not a valid Selection, try again!");
+				System.out.println(ConsoleColors.CYAN + "Not a valid Selection, try again!" + ConsoleColors.RESET);
 
 			}
 		} while (choice != 3);

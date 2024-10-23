@@ -20,50 +20,55 @@ public class StudentDashboard {
 
 			try {
 				choice = scanner.nextInt();
-				scanner.nextLine();
 			} catch (InputMismatchException e) {
-				System.out.println("Please enter a number!");
+//				System.out.println(ConsoleColors.CYAN + "Please enter a number!" + ConsoleColors.RESET);
 			}
+			scanner.nextLine();
 			switch (choice) {
 			case 1:
-				System.out.println(ConsoleColors.PINK + "Would you like to save your schedule in a text file? (Y/N)");
+				System.out.println(ConsoleColors.CYAN + "Would you like to save your schedule in a text file? (Y/N)");
 				String save = scanner.nextLine();
 				if (save.toUpperCase().equals("Y")) {
 					student.getStudentSchedule().printScheduleFile();
 				} else if (!save.toUpperCase().equals("N")) {
-					System.out.println("That is not a valid selection! Your schedule will not save to a text file."
-							+ ConsoleColors.RESET);
+					System.out.println("That is not a valid selection! Your schedule will not save to a text file.");
 				}
 				student.getStudentSchedule().printSchedule();
+				System.out.println(ConsoleColors.RESET);
 				break;
 			case 2:
-				System.out.println("Please enter the ID of the course you would like to add:");
+				System.out.println(ConsoleColors.CYAN + "Please enter the ID of the course you would like to add:");
 				String courseID = scanner.nextLine();
 				student.getStudentSchedule().addCourse(courseID);
+				System.out.println(ConsoleColors.RESET);
 				break;
 			case 3:
-				System.out.println("Please enter the ID of the course you would like to remove:");
+				System.out.println(ConsoleColors.CYAN + "Please enter the ID of the course you would like to remove:");
 				String courseID2 = scanner.nextLine();
 				student.getStudentSchedule().deleteCourse(courseID2);
+				System.out.println(ConsoleColors.RESET);
 				break;
 			case 4:
-				System.out.println("These are all the courses we offer: \n");
+				System.out.println(ConsoleColors.CYAN + "These are all the courses we offer: \n" + ConsoleColors.RESET);
 				Schedule.printALL_COURSES();
-				System.out.println("\nPlease enter the ID of the course you would like to view:");
+				System.out.println(ConsoleColors.CYAN + "\nPlease enter the ID of the course you would like to view:"
+						+ ConsoleColors.RESET);
 				String courseID3 = scanner.nextLine();
 				if (student.getStudentSchedule().getCourse(courseID3) != null) {
 					System.out.println(student.getStudentSchedule().getCourse(courseID3).toString());
 				} else {
-					System.out.println("That course does not exist!");
+					System.out.println(ConsoleColors.CYAN + "That course does not exist!");
 				}
+				System.out.println(ConsoleColors.RESET);
 				break;
 			case 5:
-				System.out.println("Your Information: ");
+				System.out.println(ConsoleColors.CYAN + "Your Information: ");
 				student.printInfo();
+				System.out.println(ConsoleColors.RESET);
 				break;
 
 			case 6:
-				System.out.println("Are you sure you want to change your password? (Y/N)");
+				System.out.println(ConsoleColors.CYAN + "Are you sure you want to change your password? (Y/N)");
 				String passwordChange = scanner.nextLine();
 				if (passwordChange.toLowerCase().equals("y")) {
 					System.out.println("Enter your new password: ");
@@ -90,6 +95,7 @@ public class StudentDashboard {
 							}
 						}
 					}
+
 					break;
 				} else if (passwordChange.toLowerCase().equals("n")) {
 					System.out.println("Your password will not be changed!");
@@ -107,6 +113,7 @@ public class StudentDashboard {
 			}
 
 		} while (choice != 7);
+		System.out.println(ConsoleColors.RESET);
 //		try {
 //			scan.close();
 //		} catch (NoSuchElementException e) {
