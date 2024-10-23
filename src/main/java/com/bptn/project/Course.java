@@ -48,11 +48,17 @@ public class Course {
 		return courseEndTime;
 	}
 
-//	print all course info
-	public void printCourseInfo() {
-		System.out.println("Course ID: " + courseID + "\n Course Name: " + courseName + "\n Professor Name: "
-				+ professorName + "\n Course Day: " + courseDay + "\n Start Time: " + courseStartTime + "\n End Time: "
-				+ courseEndTime);
+	@Override
+	public String toString() {
+		return "Course ID: " + courseID + "\n Course Name: " + courseName + "\n Professor Name: " + professorName
+				+ "\n Course Day: " + courseDay + "\n Start Time: " + courseStartTime + "\n End Time: " + courseEndTime;
 	}
+
+//	print all course info
+//	public void printCourseInfo() {
+//		System.out.println("Course ID: " + courseID + "\n Course Name: " + courseName + "\n Professor Name: "
+//				+ professorName + "\n Course Day: " + courseDay + "\n Start Time: " + courseStartTime + "\n End Time: "
+//				+ courseEndTime);
+//	}
 
 }

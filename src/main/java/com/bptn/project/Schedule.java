@@ -1,5 +1,8 @@
 package com.bptn.project;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -106,7 +109,8 @@ public class Schedule {
 
 	public void printDay(List<Course> daySchedule) {
 		for (Course course : daySchedule) {
-			course.printCourseInfo();
+			// course.printCourseInfo();
+			System.out.println(course.toString());
 		}
 	}
 
@@ -142,20 +146,20 @@ public class Schedule {
 		wednesday = sortSchedule(wednesday);
 		thursday = sortSchedule(thursday);
 		friday = sortSchedule(friday);
-
-		System.out.println("**********MONDAY***********");
+//*******
+		System.out.println("\n*****************MONDAY*******************");
 		printDayAllCourses(monday);
 
-		System.out.println("**********TUESDAY**********");
+		System.out.println("\n*****************TUESDAY*****************");
 		printDayAllCourses(tuesday);
 
-		System.out.println("*********WEDNESDAY*********");
+		System.out.println("\n****************WEDNESDAY****************");
 		printDayAllCourses(wednesday);
 
-		System.out.println("*********THURSDAY**********");
+		System.out.println("\n****************THURSDAY*****************");
 		printDayAllCourses(thursday);
 
-		System.out.println("**********FRIDAY***********");
+		System.out.println("\n*****************FRIDAY******************");
 		printDayAllCourses(friday);
 
 	}
@@ -188,23 +192,23 @@ public class Schedule {
 			thursday = sortSchedule(thursday);
 			friday = sortSchedule(friday);
 
-			System.out.println("**********MONDAY***********");
+			System.out.println("\n**********MONDAY***********");
 			if (monday.size() > 0) {
 				printDay(monday);
 			}
-			System.out.println("**********TUESDAY**********");
+			System.out.println("\n**********TUESDAY**********");
 			if (tuesday != null) {
 				printDay(tuesday);
 			}
-			System.out.println("*********WEDNESDAY*********");
+			System.out.println("\n*********WEDNESDAY*********");
 			if (wednesday != null) {
 				printDay(wednesday);
 			}
-			System.out.println("*********THURSDAY**********");
+			System.out.println("\n*********THURSDAY**********");
 			if (thursday != null) {
 				printDay(thursday);
 			}
-			System.out.println("**********FRIDAY***********");
+			System.out.println("\n**********FRIDAY***********");
 			if (friday != null) {
 				printDay(friday);
 			}
@@ -212,5 +216,75 @@ public class Schedule {
 			System.out.println("There are no courses in your schedule!");
 		}
 
+	}
+
+	public void printScheduleFile() {
+		if (currentSchedule.size() > 0) {
+			File file = new File("schedule.txt");
+			if (file.exists()) {
+				file.delete();
+			}
+			try {
+				FileWriter writer = new FileWriter("schedule.txt");
+				Iterator<Entry<String, Course>> itr = currentSchedule.entrySet().iterator();
+				List<Course> monday = new ArrayList<>();
+				List<Course> tuesday = new ArrayList<>();
+				List<Course> wednesday = new ArrayList<>();
+				List<Course> thursday = new ArrayList<>();
+				List<Course> friday = new ArrayList<>();
+				while (itr.hasNext()) {
+					Entry<String, Course> entry = itr.next();
+					if (entry.getValue().getCourseDay().equals("Monday")) {
+						monday.add(entry.getValue());
+					} else if (entry.getValue().getCourseDay().equals("Tuesday")) {
+						tuesday.add(entry.getValue());
+					} else if (entry.getValue().getCourseDay().equals("Wednesday")) {
+						wednesday.add(entry.getValue());
+					} else if (entry.getValue().getCourseDay().equals("Thursday")) {
+						thursday.add(entry.getValue());
+					} else {
+						friday.add(entry.getValue());
+					}
+				}
+				monday = sortSchedule(monday);
+				tuesday = sortSchedule(tuesday);
+				wednesday = sortSchedule(wednesday);
+				thursday = sortSchedule(thursday);
+				friday = sortSchedule(friday);
+
+				writer.write("**********MONDAY***********\n");
+				if (monday.size() > 0) {
+					for (Course course : monday) {
+						writer.write(course.toString());
+					}
+				}
+				writer.write("\n***************************\n");
+				writer.write("**********TUESDAY**********\n");
+				if (tuesday != null) {
+					printDay(tuesday);
+				}
+				writer.write("\n***************************\n");
+				writer.write("*********WEDNESDAY*********\n");
+				if (wednesday != null) {
+					printDay(wednesday);
+				}
+				writer.write("\n***************************\n");
+				writer.write("*********THURSDAY**********\n");
+				if (thursday != null) {
+					printDay(thursday);
+				}
+				writer.write("\n***************************\n");
+				writer.write("**********FRIDAY***********\n");
+				if (friday != null) {
+					printDay(friday);
+				}
+				System.out.println("File created");
+				writer.close();
+			} catch (IOException e) {
+				System.out.println("Something went wrong when creating the file.");
+			}
+		} else {
+			System.out.println("There are no courses in your schedule!");
+		}
 	}
 }

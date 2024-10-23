@@ -23,6 +23,13 @@ public class StudentDashboard {
 			}
 			switch (choice) {
 			case 1:
+				System.out.println("Would you like to save your schedule in a text file? (Y/N)");
+				String save = scanner.nextLine();
+				if (save.toUpperCase().equals("Y")) {
+					student.getStudentSchedule().printScheduleFile();
+				} else if (!save.toUpperCase().equals("N")) {
+					System.out.println("That is not a valid selection! Your schedule will not save to a text file.");
+				}
 				student.getStudentSchedule().printSchedule();
 				break;
 			case 2:
@@ -36,12 +43,12 @@ public class StudentDashboard {
 				student.getStudentSchedule().deleteCourse(courseID2);
 				break;
 			case 4:
-				System.out.println("These are all the courses we offer: ");
+				System.out.println("These are all the courses we offer: \n");
 				Schedule.printALL_COURSES();
-				System.out.println("Please enter the ID of the course you would like to view:");
+				System.out.println("\nPlease enter the ID of the course you would like to view:");
 				String courseID3 = scanner.nextLine();
 				if (student.getStudentSchedule().getCourse(courseID3) != null) {
-					student.getStudentSchedule().getCourse(courseID3).printCourseInfo();
+					System.out.println(student.getStudentSchedule().getCourse(courseID3).toString());
 				} else {
 					System.out.println("That course does not exist!");
 				}
