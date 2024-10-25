@@ -65,13 +65,13 @@ public class Course {
 		}
 		String printStart = "";
 		String printEnd = "";
-		if (courseStartTime % 1 == 0.3) {
-			printStart = (int) courseStartTime - 0.3 + ":30";
+		if ((courseStartTime - 0.29) > (int) courseStartTime) {
+			printStart = (int) (courseStartTime - 0.3) + ":30";
 		} else {
 			printStart = (int) courseStartTime + ":00";
 		}
-		if (courseEndTime % 1 == 0.3) {
-			printEnd = (int) courseEndTime - 0.3 + ":30";
+		if ((courseEndTime - 0.29) > (int) courseEndTime) {
+			printEnd = (int) (courseEndTime - 0.3) + ":30";
 		} else {
 			printEnd = (int) courseEndTime + ":00";
 		}

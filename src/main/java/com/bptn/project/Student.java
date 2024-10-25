@@ -6,14 +6,14 @@ public class Student {
 	private String studentName;
 	private String studentEmail; // email will be a school email “blah@school.com”
 	private String studentPassword;
-	private Schedule studentSchedule;
+	private StudentSchedule studentSchedule;
 
 	public Student(String studentID, String studentName, String studentEmail, String studentPassword) {
 		this.studentID = studentID;
 		this.studentName = studentName;
 		this.studentEmail = studentEmail;
 		this.studentPassword = studentPassword;
-		this.studentSchedule = new Schedule();
+		this.studentSchedule = new StudentSchedule();
 
 	}
 
@@ -35,7 +35,7 @@ public class Student {
 		return studentPassword;
 	}
 
-	public Schedule getStudentSchedule() {
+	public StudentSchedule getStudentSchedule() {
 		return studentSchedule;
 	}
 

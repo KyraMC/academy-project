@@ -3,10 +3,17 @@ package com.bptn.project;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+// This class shows the menu options once the student has logged in
 public class StudentDashboard {
 
+	// Dashboard method that is called once logged in
+	// Takes a student object (the student who logged in) and the scanner instance
+	// as a parameter
 	public static void dashboard(Student student, Scanner scanner) {
+		// Option user chooses
 		int choice = 0;
+		CompleteSchedule ALL_COURSES = new CompleteSchedule();
+		ALL_COURSES.addCourse();
 		do {
 			System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + ConsoleColors.PINK
 					+ "************************************************** \n"
@@ -21,41 +28,45 @@ public class StudentDashboard {
 			try {
 				choice = scanner.nextInt();
 			} catch (InputMismatchException e) {
-//				System.out.println(ConsoleColors.CYAN + "Please enter a number!" + ConsoleColors.RESET);
+				// System.out.println(ConsoleColors.CYAN + "Please enter a number!" +
+				// ConsoleColors.RESET);
+				choice = 0;
 			}
 			scanner.nextLine();
 			switch (choice) {
 			case 1:
-				System.out.println(ConsoleColors.CYAN + "Would you like to save your schedule in a text file? (Y/N)");
+				System.out.println(ConsoleColors.CYAN + "Would you like to save your schedule in a text file? (Y/N)"
+						+ ConsoleColors.RESET);
 				String save = scanner.nextLine();
 				if (save.toUpperCase().equals("Y")) {
 					student.getStudentSchedule().printScheduleFile();
 				} else if (!save.toUpperCase().equals("N")) {
-					System.out.println("That is not a valid selection! Your schedule will not save to a text file.");
+					System.out.println(ConsoleColors.CYAN
+							+ "That is not a valid selection! Your schedule will not save to a text file."
+							+ ConsoleColors.RESET);
 				}
 				student.getStudentSchedule().printSchedule();
-				System.out.println(ConsoleColors.RESET);
 				break;
 			case 2:
 				System.out.println(ConsoleColors.CYAN + "Please enter the ID of the course you would like to add:");
 				String courseID = scanner.nextLine();
-				student.getStudentSchedule().addCourse(courseID);
+				student.getStudentSchedule().addCourse(courseID, ALL_COURSES);
 				System.out.println(ConsoleColors.RESET);
 				break;
 			case 3:
 				System.out.println(ConsoleColors.CYAN + "Please enter the ID of the course you would like to remove:");
 				String courseID2 = scanner.nextLine();
-				student.getStudentSchedule().deleteCourse(courseID2);
+				student.getStudentSchedule().deleteCourse(courseID2, ALL_COURSES);
 				System.out.println(ConsoleColors.RESET);
 				break;
 			case 4:
 				System.out.println(ConsoleColors.CYAN + "These are all the courses we offer: \n" + ConsoleColors.RESET);
-				Schedule.printALL_COURSES();
+				ALL_COURSES.printSchedule();
 				System.out.println(ConsoleColors.CYAN + "\nPlease enter the ID of the course you would like to view:"
 						+ ConsoleColors.RESET);
 				String courseID3 = scanner.nextLine();
-				if (student.getStudentSchedule().getCourse(courseID3) != null) {
-					System.out.println(student.getStudentSchedule().getCourse(courseID3).toString());
+				if (ALL_COURSES.getCourse(courseID3) != null) {
+					System.out.println(ALL_COURSES.getCourse(courseID3).toString());
 				} else {
 					System.out.println(ConsoleColors.CYAN + "That course does not exist!");
 				}
