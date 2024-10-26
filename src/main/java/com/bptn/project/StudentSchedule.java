@@ -166,20 +166,21 @@ public class StudentSchedule extends Schedule {
 			return 1;
 		} else if (!ALL_COURSES.courseExists(courseID.toUpperCase())) {
 			return 2;
+		} else if (schedule.containsKey(courseID.toUpperCase())) {
+			return -1;
 		} else {
-			if (schedule.containsKey(courseID.toUpperCase())) {
-				return -1;
-			} else {
-				Course course = ALL_COURSES.getCourse(courseID.toUpperCase());
-				for (Course c : schedule.values()) {
-					if (course.getCourseEndTime() <= c.getCourseStartTime()
-							|| course.getCourseStartTime() >= c.getCourseEndTime()) {
-						return 1;
-					}
+			Course course = ALL_COURSES.getCourse(courseID.toUpperCase());
+			int output = 0;
+			for (Course c : schedule.values()) {
+				if (course.getCourseEndTime() <= c.getCourseStartTime()
+						|| course.getCourseStartTime() >= c.getCourseEndTime()) {
+					output = 1;
+				} else {
+					return 0;
 				}
 			}
+			return output;
 		}
-		return 0;
 	}
 
 	public void addCourse(String courseID, CompleteSchedule ALL_COURSES) {
