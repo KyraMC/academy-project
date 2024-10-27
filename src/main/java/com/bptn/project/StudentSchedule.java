@@ -8,20 +8,24 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
+// StudentSchedule class - child of Schedule
 public class StudentSchedule extends Schedule {
 
+	// Constructor
 	public StudentSchedule() {
 		super();
 	}
 
+	// Prints all the courses in a day
 	public void printDay(List<Course> daySchedule) {
 		for (Course course : daySchedule) {
-			// course.printCourseInfo();
-			System.out.println(course.toString());
+			System.out.println(ConsoleColors.PURPLE + course.toString() + ConsoleColors.RESET);
 		}
 	}
 
+	// Prints all the courses in the schedule
 	public void printSchedule() {
+		// Checking if there are courses in the schedule
 		if (schedule.size() > 0) {
 			Iterator<Entry<String, Course>> itr = schedule.entrySet().iterator();
 			List<Course> monday = new ArrayList<>();
@@ -29,6 +33,8 @@ public class StudentSchedule extends Schedule {
 			List<Course> wednesday = new ArrayList<>();
 			List<Course> thursday = new ArrayList<>();
 			List<Course> friday = new ArrayList<>();
+			// Iterates over the courses in the schedule and sorts them into what day they
+			// belong
 			while (itr.hasNext()) {
 				Entry<String, Course> entry = itr.next();
 				if (entry.getValue().getCourseDay().equals("Monday")) {
@@ -43,11 +49,16 @@ public class StudentSchedule extends Schedule {
 					friday.add(entry.getValue());
 				}
 			}
+			// Sorts the daily schedules by their course start times
 			monday = sortSchedule(monday);
 			tuesday = sortSchedule(tuesday);
 			wednesday = sortSchedule(wednesday);
 			thursday = sortSchedule(thursday);
 			friday = sortSchedule(friday);
+
+			// Prints the daily schedules to console
+			System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT + "***************** SCHEDULE *******************\n"
+					+ ConsoleColors.RESET);
 
 			System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT + "\n*****************MONDAY*******************"
 					+ ConsoleColors.RESET);
@@ -81,12 +92,18 @@ public class StudentSchedule extends Schedule {
 
 	}
 
+	// Creates a txt file called schedule.txt that displays the user schedule
 	public void printScheduleFile() {
+		// If there are courses in the schedule, then proceed
 		if (schedule.size() > 0) {
+			// Creates a file called schedule.txt and checks that any existing files by the
+			// same name are deleted
 			File file = new File("schedule.txt");
 			if (file.exists()) {
 				file.delete();
 			}
+			// Writes the schedule to the txt file, by sorting the schedule and then writing
+			// it
 			try {
 				FileWriter writer = new FileWriter("schedule.txt");
 				Iterator<Entry<String, Course>> itr = schedule.entrySet().iterator();
@@ -115,6 +132,7 @@ public class StudentSchedule extends Schedule {
 				thursday = sortSchedule(thursday);
 				friday = sortSchedule(friday);
 
+				writer.write("***************** SCHEDULE *******************\n");
 				writer.write("\n*****************************************\n");
 				writer.write("*****************MONDAY******************\n");
 				if (monday != null) {
@@ -152,14 +170,16 @@ public class StudentSchedule extends Schedule {
 				}
 				System.out.println("File created");
 				writer.close();
+				// If file cannot be created catches the exception
 			} catch (IOException e) {
 				System.out.println("Something went wrong when creating the file.");
 			}
 		}
 	}
 
-	public int courseConflict(String courseID, CompleteSchedule ALL_COURSES) { // If course is already in
-																				// schedule return -1,
+	// Checks if there is a course conflict when adding a course to schedule
+	public int courseConflict(String courseID, CompleteSchedule ALL_COURSES) {
+		// If course is already in schedule return -1,
 		// if schedule conflict return 0, if no conflict return 1, if course doesn't
 		// exist return 2
 		if (schedule.isEmpty() && ALL_COURSES.courseExists(courseID.toUpperCase())) {
@@ -183,6 +203,8 @@ public class StudentSchedule extends Schedule {
 		}
 	}
 
+	// Adds course to schedule if no conflict and user doesn't have 6 courses in
+	// schedule
 	public void addCourse(String courseID, CompleteSchedule ALL_COURSES) {
 		int conflict = courseConflict(courseID, ALL_COURSES);
 		if (conflict == 2) {
@@ -203,6 +225,7 @@ public class StudentSchedule extends Schedule {
 
 	}
 
+	// Deletes course from schedule if possible
 	public void deleteCourse(String courseID, CompleteSchedule ALL_COURSES) {
 		if (!ALL_COURSES.courseExists(courseID.toUpperCase())) {
 			System.out.println(ConsoleColors.CYAN + "This courseID does not exist!" + ConsoleColors.RESET);

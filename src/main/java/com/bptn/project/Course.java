@@ -2,7 +2,7 @@ package com.bptn.project;
 
 public class Course {
 
-//		Class Variables:
+	// Class Variables:
 	private String courseID;
 	private String courseName;
 	private String professorName;
@@ -48,6 +48,7 @@ public class Course {
 		return courseEndTime;
 	}
 
+	// Returns course info as string and checks if its am or pm
 	@Override
 	public String toString() {
 		String start = "";
@@ -79,12 +80,5 @@ public class Course {
 				+ "\nCourse Day: " + courseDay + "\nStart Time: " + printStart + start + "\nEnd Time: " + printEnd + end
 				+ "\n";
 	}
-
-//	print all course info
-//	public void printCourseInfo() {
-//		System.out.println("Course ID: " + courseID + "\n Course Name: " + courseName + "\n Professor Name: "
-//				+ professorName + "\n Course Day: " + courseDay + "\n Start Time: " + courseStartTime + "\n End Time: "
-//				+ courseEndTime);
-//	}
 
 }

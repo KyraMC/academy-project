@@ -8,6 +8,7 @@ public class Student {
 	private String studentPassword;
 	private StudentSchedule studentSchedule;
 
+	// Constructor
 	public Student(String studentID, String studentName, String studentEmail, String studentPassword) {
 		this.studentID = studentID;
 		this.studentName = studentName;
@@ -39,10 +40,13 @@ public class Student {
 		return studentSchedule;
 	}
 
+	// Prints all student info
 	public void printInfo() {
-		System.out.println("Student ID: " + studentID + "\nName: " + studentName + "\nEmail: " + studentEmail);
+		System.out.println(ConsoleColors.PURPLE + "Student ID: " + studentID.toUpperCase() + "\nName: "
+				+ studentName.toUpperCase() + "\nEmail: " + studentEmail.toLowerCase() + ConsoleColors.RESET);
 	}
 
+	// setter
 	public void setPassword(String newPassword) {
 		studentPassword = newPassword;
 	}

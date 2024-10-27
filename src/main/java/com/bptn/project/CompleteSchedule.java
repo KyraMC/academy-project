@@ -6,12 +6,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
+// CompleteSchedule class - child of Schedule
 public class CompleteSchedule extends Schedule {
 
+	// Constructor
 	public CompleteSchedule() {
 		super();
 	}
 
+	// Adds all the courses the school offers to the schedule
 	public void addCourse() {
 		// create courses and add them to ALL_COURSES
 		// Monday Courses
@@ -79,23 +82,28 @@ public class CompleteSchedule extends Schedule {
 		schedule.put("CIN100", c25);
 	}
 
+	// Returns the complete schedule
 	@Override
 	public HashMap<String, Course> getSchedule() {
 		addCourse();
 		return schedule;
 	}
 
+	// Prints all the course IDs and the corresponding course names to console
 	@Override
 	public void printDay(List<Course> daySchedule) {
 		for (Course course : daySchedule) {
-			System.out.println(course.getCourseID() + ": " + course.getCourseName());
+			System.out.println(
+					ConsoleColors.PURPLE + course.getCourseID() + ": " + course.getCourseName() + ConsoleColors.RESET);
 		}
 	}
 
+	// Checks if the course exists in the complete schedule
 	public boolean courseExists(String courseID) {
 		return schedule.containsKey(courseID.toUpperCase());
 	}
 
+	// Gets the Course if the courseId given exists
 	public Course getCourse(String courseID) {
 		if (courseExists(courseID)) {
 			return schedule.get(courseID.toUpperCase());
@@ -104,6 +112,7 @@ public class CompleteSchedule extends Schedule {
 		}
 	}
 
+	// Prints the sorted complete schedule to console
 	public void printSchedule() {
 		Iterator<Entry<String, Course>> itr = schedule.entrySet().iterator();
 		List<Course> monday = new ArrayList<>();
@@ -130,7 +139,8 @@ public class CompleteSchedule extends Schedule {
 		wednesday = sortSchedule(wednesday);
 		thursday = sortSchedule(thursday);
 		friday = sortSchedule(friday);
-//*******
+		System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT
+				+ "\n***************** Complete Course Schedule *******************" + ConsoleColors.RESET);
 		System.out.println(ConsoleColors.PURPLE_BOLD_BRIGHT + "\n*****************MONDAY*******************"
 				+ ConsoleColors.RESET);
 		printDay(monday);

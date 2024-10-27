@@ -16,7 +16,6 @@ public class Main {
 	// checks if the user's login was successful
 	public static boolean login(String studentID) {
 		if (studentAccounts.containsKey(studentID)) {
-			// Scanner scan = new Scanner(System.in);
 			Student student = studentAccounts.get(studentID);
 			System.out.println(ConsoleColors.CYAN + "Please enter your password: " + ConsoleColors.RESET);
 			String studentPassword = scanner.nextLine();
@@ -29,7 +28,7 @@ public class Main {
 
 	// Generates a studentId for new users
 	public static String idGenerator(String lastName) {
-		String id = lastName + idCount;
+		String id = lastName.toLowerCase() + idCount;
 		idCount++;
 		return id;
 	}
@@ -81,7 +80,7 @@ public class Main {
 				} while (!studentPassword1.equals(studentPassword2));
 			}
 			String studentID = idGenerator(studentLast);
-			Student student = new Student(studentID, studentFirst + studentLast, email, studentPassword1);
+			Student student = new Student(studentID, studentFirst + " " + studentLast, email, studentPassword1);
 			studentAccounts.put(studentID, student);
 			emailsToIds.put(email, studentID);
 			return true;
@@ -126,8 +125,8 @@ public class Main {
 			case 1:
 				System.out.println(ConsoleColors.CYAN + "Please enter your student ID: " + ConsoleColors.RESET);
 				String studentID = scanner.nextLine();
-				if (login(studentID)) {
-					StudentDashboard.dashboard(studentAccounts.get(studentID), scanner);
+				if (login(studentID.toLowerCase())) {
+					StudentDashboard.dashboard(studentAccounts.get(studentID.toLowerCase()), scanner);
 				} else {
 					System.out.println(ConsoleColors.CYAN + "The login was unsuccessful! Please make sure you are"
 							+ " entering the correct student ID and password!" + ConsoleColors.RESET);
@@ -156,6 +155,7 @@ public class Main {
 					}
 				}
 				break;
+
 			// User can exit
 			case 3:
 				System.out.println(ConsoleColors.CYAN + "Thanks for stopping by!" + ConsoleColors.RESET);

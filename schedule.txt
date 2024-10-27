@@ -1,3 +1,4 @@
+***************** SCHEDULE *******************
 
 *****************************************
 *****************MONDAY******************
@@ -13,10 +14,17 @@
 
 *****************************************
 *****************FRIDAY******************
+Course ID: CHM100
+Course Name: Introduction to Chemistry
+Professor Name: Professor Mol
+Course Day: Friday
+Start Time: 11:00a.m
+End Time: 12:30p.m
+
 Course ID: CIN100
 Course Name: Introduction to Cinema
 Professor Name: Professor Abrams
 Course Day: Friday
 Start Time: 15:00p.m
-End Time: 17:00p.m
+End Time: 17:30p.m
 
