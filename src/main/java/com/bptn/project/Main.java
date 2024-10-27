@@ -5,12 +5,15 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+// Main class that is shown to users allowing them to login, create an account, or exit
 public class Main {
+	// Class Variables
 	private static HashMap<String, Student> studentAccounts = new HashMap<>();
 	private static HashMap<String, String> emailsToIds = new HashMap<>();
 	private static int idCount = 0;
 	private static Scanner scanner = new Scanner(System.in);
 
+	// checks if the user's login was successful
 	public static boolean login(String studentID) {
 		if (studentAccounts.containsKey(studentID)) {
 			// Scanner scan = new Scanner(System.in);
@@ -24,18 +27,22 @@ public class Main {
 		return false;
 	}
 
+	// Generates a studentId for new users
 	public static String idGenerator(String lastName) {
 		String id = lastName + idCount;
 		idCount++;
 		return id;
 	}
 
+	// Checks if the email is valid and ends in @\school.com;
 	public static boolean isEmailValid(String email) {
 		final Pattern EMAIL_REGEX = Pattern.compile(
 				"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@school.com", Pattern.CASE_INSENSITIVE);
-		return EMAIL_REGEX.matcher(email).matches();
+		return EMAIL_REGEX.matcher(email).matches() && !email.contains(" ");
 	}
 
+	// Creates a student account using the email, first name, last name, and a
+	// password
 	public static boolean createAccount(String email) {
 		if (isEmailValid(email)) {
 			System.out.println(ConsoleColors.CYAN + "Please enter your first name: " + ConsoleColors.RESET);
@@ -82,11 +89,17 @@ public class Main {
 		return false;
 	}
 
+	// Login display menu
 	public static void main(String[] args) {
+		// creating an admin account (for testing code)
 		Student admin = new Student("admin", "admin", "admin@school.com", "admin");
 		studentAccounts.put("admin", admin);
 		emailsToIds.put(admin.getStudentEmail(), admin.getStudentID());
+
+		// variable for users menu choice
 		int choice = 0;
+
+		// do while loop that displays the login menu and gets the user input
 		do {
 			System.out.println(ConsoleColors.CYAN_BOLD_BRIGHT + ConsoleColors.LILAC
 					+ "************************************************** \n"
@@ -96,15 +109,20 @@ public class Main {
 					+ "| Num |     What would you like to do?_______\n" + ConsoleColors.RESET + ConsoleColors.LILAC
 					+ "|  1. | Login \n" + "|  2. | Create an Account \n" + "|  3. | Exit \n" + ConsoleColors.RESET);
 
+			// Gets user input and if it's not an int, resets the choice and makes them try
+			// again
 			try {
 				choice = scanner.nextInt();
 
 			} catch (InputMismatchException e) {
-				// System.out.println(ConsoleColors.CYAN + "Please enter a number!" +
-				// ConsoleColors.RESET);
+				choice = 0;
 			}
 			scanner.nextLine();
+
+			// Switch statements for user options
 			switch (choice) {
+			// User can login if they have valid credentials and it will take them to the
+			// student dashboard menu
 			case 1:
 				System.out.println(ConsoleColors.CYAN + "Please enter your student ID: " + ConsoleColors.RESET);
 				String studentID = scanner.nextLine();
@@ -116,6 +134,9 @@ public class Main {
 				}
 
 				break;
+
+			// User can create an account if their email is not already in use and they have
+			// a valid email
 			case 2:
 				System.out.println(ConsoleColors.CYAN + "Please enter your student email: " + ConsoleColors.RESET);
 				System.out.println(ConsoleColors.CYAN + "(should end in @school.com)" + ConsoleColors.RESET);
@@ -135,15 +156,17 @@ public class Main {
 					}
 				}
 				break;
+			// User can exit
 			case 3:
 				System.out.println(ConsoleColors.CYAN + "Thanks for stopping by!" + ConsoleColors.RESET);
 				scanner.close();
 				break;
+
+			// User chooses a wrong option and tries again
 			default:
 				System.out.println(ConsoleColors.CYAN + "Not a valid Selection, try again!" + ConsoleColors.RESET);
 
 			}
 		} while (choice != 3);
-		// scan.close();
 	}
 }
